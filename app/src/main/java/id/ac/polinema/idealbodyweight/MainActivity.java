@@ -6,15 +6,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import id.ac.polinema.idealbodyweight.fragments.AboutFragment;
 
 public class MainActivity extends AppCompatActivity {
 
 	// Deklarasikan atribut Fragment di sini
+	private AboutFragment aboutFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		aboutFragment = AboutFragment.newInstance("Satria Putra Sabana");
 	}
 
 	@Override
@@ -26,7 +31,14 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 		// TODO: Tambahkan penanganan menu di sini
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.fragment_container, aboutFragment)
+				.addToBackStack(null)
+				.commit();
 
 		return super.onOptionsItemSelected(item);
 	}
+
+    public void handlerAboutFragment(View view) {
+    }
 }
