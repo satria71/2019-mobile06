@@ -9,20 +9,28 @@ import android.view.MenuItem;
 import android.view.View;
 
 import id.ac.polinema.idealbodyweight.fragments.AboutFragment;
+import id.ac.polinema.idealbodyweight.fragments.BrocaIndexFragment;
 import id.ac.polinema.idealbodyweight.fragments.MenuFragment;
 
 public class MainActivity extends AppCompatActivity implements
-		MenuFragment.OnFragmentInteractionListener {
+		MenuFragment.OnFragmentInteractionListener,
+        BrocaIndexFragment.OnFragmentInteractionListener {
 
 	// Deklarasikan atribut Fragment di sini
 	private AboutFragment aboutFragment;
 	private MenuFragment menuFragment;
+	private BrocaIndexFragment brocaIndexFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		aboutFragment = AboutFragment.newInstance("Satria Putra Sabana");
+		menuFragment = new MenuFragment();
+		brocaIndexFragment = new BrocaIndexFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, menuFragment)
+                .commit();
 	}
 
 	@Override
@@ -38,8 +46,7 @@ public class MainActivity extends AppCompatActivity implements
 				.replace(R.id.fragment_container, aboutFragment)
 				.addToBackStack(null)
 				.commit();
-		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.fragment_container, menuFragment);
+
 
 
 		return super.onOptionsItemSelected(item);
@@ -50,11 +57,18 @@ public class MainActivity extends AppCompatActivity implements
 
 	@Override
 	public void onBrocaIndexButtonClicked() {
-
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.fragment_container, brocaIndexFragment)
+				.commit();
 	}
 
 	@Override
 	public void onBodyMassIndexButtonClicked() {
 
 	}
+
+    @Override
+    public void onCalculateBrocaIndexClicked(float index) {
+
+    }
 }
