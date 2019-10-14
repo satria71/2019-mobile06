@@ -21,9 +21,15 @@ import id.ac.polinema.idealbodyweight.R;
  * to handle interaction events.
  */
 public class ResultFragment extends Fragment {
+    public static final String BROCA_TAG = "BrocaIndex";
+    public static final String BMI_TAG = "BMIndex";
 
     private OnFragmentInteractionListener mListener;
-    private String information;
+    String information, tag;
+
+
+
+    public void setTag(String tag) { this.tag = tag; }
 
     public ResultFragment() {
         // Required empty public constructor
@@ -42,7 +48,11 @@ public class ResultFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(mListener != null){
-                    mListener.onTryAgainButtonClicked("BrocaIndex");
+                    if (tag.equalsIgnoreCase(BROCA_TAG))
+                        mListener.onTryAgainButtonClicked(BROCA_TAG);
+                    else {
+                        mListener.onTryAgainButtonClicked(BMI_TAG);
+                    }
                 }
             }
         });

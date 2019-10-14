@@ -9,8 +9,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import id.ac.polinema.idealbodyweight.R;
+import id.ac.polinema.idealbodyweight.util.BodyMassIndex;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,15 +35,28 @@ public class BodyMassIndexFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_body_mass_index, container, false);
+        View view =  inflater.inflate(R.layout.fragment_body_mass_index, container, false);
+        final EditText weigthText = view.findViewById(R.id.input_weigth);
+        final EditText heightText = view.findViewById(R.id.input_height);
+        Button calculateButton = view.findViewById(R.id.button_calculate);
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mListener != null){
+                    String weightString = weigthText.getText().toString();
+                    String heightString = heightText.getText().toString();
+                    float height = Float.valueOf(heightString);
+                    float weigth = Float.valueOf(weightString);
+
+                    BodyMassIndex bodyMassIndex = new BodyMassIndex(weigth, height);
+                    mListener.onCalculateBodyMassIndexClicked(bodyMassIndex.getIndex(), ResultFragment.BMI_TAG);
+                }
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -70,6 +87,6 @@ public class BodyMassIndexFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onCalculateBodyMassIndexClicked(float index, String tag);
     }
 }

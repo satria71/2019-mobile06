@@ -1,11 +1,11 @@
 package id.ac.polinema.idealbodyweight.util;
 
 public class BodyMassIndex {
-    private int weigth;
-    private int height;
+    private float weigth;
+    private float height;
     private float index;
 
-    public BodyMassIndex(int weigth, int height) {
+    public BodyMassIndex(float weigth, float height) {
         this.weigth = weigth;
         this.height = height;
         this.index = calculate();
